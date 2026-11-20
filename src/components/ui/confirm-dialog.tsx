@@ -10,6 +10,7 @@ export function ConfirmDialog({
   title,
   description,
   loading,
+  confirmLabel = "Confirm",
 }: {
   open: boolean;
   onClose: () => void;
@@ -17,6 +18,7 @@ export function ConfirmDialog({
   title: string;
   description: string;
   loading?: boolean;
+  confirmLabel?: string;
 }) {
   return (
     <Modal {...{ open, onClose, title }}>
@@ -26,7 +28,7 @@ export function ConfirmDialog({
           Cancel
         </Button>
         <Button variant="danger" loading={loading} onClick={onConfirm}>
-          Confirm
+          {confirmLabel}
         </Button>
       </div>
     </Modal>

@@ -14,9 +14,9 @@ export function Pagination({
   total: number;
   onPageChange: (page: number) => void;
 }) {
-  const pages = Array.from({ length: totalPages }, (_, i) => i + 1).filter(
-    (n) => n === 1 || n === totalPages || Math.abs(n - page) <= 1,
-  );
+  const pages = [...new Set([1, page - 1, page, page + 1, totalPages])]
+    .filter((n) => n >= 1 && n <= totalPages)
+    .sort((a, b) => a - b);
   return (
     <nav
       aria-label="Pagination"

@@ -1,23 +1,12 @@
-import { Stethoscope } from "lucide-react";
-import { PageHeader } from "@/components/layout/PageHeader";
-import { Card, EmptyState } from "@/components/ui";
+import { Suspense } from "react";
+import { DoctorList } from "@/features/doctors/components/DoctorList";
+import { ListLoading } from "@/features/shared/ListLoading";
 
 export const metadata = { title: "Doctors" };
-
 export default function DoctorsPage() {
   return (
-    <>
-      <PageHeader
-        title="Doctors"
-        description="Find and manage the doctors in your network."
-      />
-      <Card>
-        <EmptyState
-          icon={<Stethoscope />}
-          title="Doctor management is coming soon"
-          description="Your doctor directory will be available here."
-        />
-      </Card>
-    </>
+    <Suspense fallback={<ListLoading />}>
+      <DoctorList />
+    </Suspense>
   );
 }

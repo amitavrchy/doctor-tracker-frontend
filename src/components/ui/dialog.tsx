@@ -18,6 +18,10 @@ export function Modal({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const titleId = useId();
+  const onCloseRef = useRef(onClose);
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
   useEffect(() => {
     if (!open) return;
     const previous = document.activeElement as HTMLElement;
@@ -25,7 +29,7 @@ export function Modal({
     document.body.style.overflow = "hidden";
     ref.current?.focus();
     const key = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") onCloseRef.current();
       if (e.key === "Tab" && ref.current) {
         const items = Array.from(
           ref.current.querySelectorAll<HTMLElement>(
@@ -57,7 +61,7 @@ export function Modal({
       document.body.style.overflow = old;
       previous?.focus();
     };
-  }, [open, onClose]);
+  }, [open]);
   if (!open || typeof document === "undefined") return null;
   return createPortal(
     <div
@@ -71,9 +75,9 @@ export function Modal({
         tabIndex={-1}
         ref={ref}
         onMouseDown={(e) => e.stopPropagation()}
-        className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl outline-none"
+        className="flex max-h-[calc(100dvh-2rem)] w-full max-w-lg flex-col overflow-hidden rounded-2xl bg-white p-6 shadow-xl outline-none"
       >
-        <div className="mb-5 flex items-center justify-between">
+        <div className="mb-5 flex shrink-0 items-center justify-between">
           <h2 id={titleId} className="text-lg font-semibold">
             {title}
           </h2>
