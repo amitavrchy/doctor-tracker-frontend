@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
 import { Badge } from "@/components/ui";
 import { formatDate } from "@/lib/utils/format";
@@ -32,9 +33,16 @@ export function PatientCards({
           {showDoctor && (
             <p className="mt-2 text-sm text-slate-500">
               Doctor:{" "}
-              {typeof patient.doctor === "object" && patient.doctor
-                ? patient.doctor.name
-                : "—"}
+              {typeof patient.doctor === "object" && patient.doctor ? (
+                <Link
+                  className="text-teal-700 hover:underline"
+                  href={`/doctors/${patient.doctor._id}`}
+                >
+                  {patient.doctor.name}
+                </Link>
+              ) : (
+                "—"
+              )}
             </p>
           )}
           <div className="mt-3 flex items-center gap-3">

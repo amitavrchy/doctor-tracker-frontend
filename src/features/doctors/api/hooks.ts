@@ -34,6 +34,9 @@ export function useCreateDoctor() {
   return useMutation({
     mutationFn: (input: DoctorInput) => api.post<Doctor>("/doctors", input),
     onSuccess: () =>
-      client.invalidateQueries({ queryKey: ["doctors", "list"] }),
+      Promise.all([
+        client.invalidateQueries({ queryKey: ["doctors", "list"] }),
+        client.invalidateQueries({ queryKey: ["dashboard"] }),
+      ]),
   });
 }

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
 import {
   Badge,
@@ -57,9 +58,16 @@ export function PatientTable({
               </TableCell>
               {showDoctor && (
                 <TableCell>
-                  {typeof patient.doctor === "object" && patient.doctor
-                    ? patient.doctor.name
-                    : "—"}
+                  {typeof patient.doctor === "object" && patient.doctor ? (
+                    <Link
+                      className="text-teal-700 hover:underline"
+                      href={`/doctors/${patient.doctor._id}`}
+                    >
+                      {patient.doctor.name}
+                    </Link>
+                  ) : (
+                    "—"
+                  )}
                 </TableCell>
               )}
               <TableCell>{patient.condition}</TableCell>

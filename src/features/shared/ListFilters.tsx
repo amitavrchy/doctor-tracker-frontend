@@ -50,7 +50,14 @@ export function ListFilters({
   count,
   onUpdate,
   onClear,
-}: ListFilterProps & { filters: Filter[]; sortOptions: FilterOption[] }) {
+  children,
+  patientLayout = false,
+}: ListFilterProps & {
+  filters: Filter[];
+  sortOptions: FilterOption[];
+  children?: React.ReactNode;
+  patientLayout?: boolean;
+}) {
   const [searchVersion, setSearchVersion] = useState(0);
   const [dateError, setDateError] = useState(false);
   const [expanded, setExpanded] = useState(false);
@@ -71,9 +78,37 @@ export function ListFilters({
     onUpdate(updates);
   }
   const active = filters.filter((filter) => values[filter.name]);
+  const renderFilter = (filter: Filter) =>
+    filter.options ? (
+      <Select
+        key={filter.name}
+        name={filter.name}
+        label={filter.label}
+        defaultValue={values[filter.name] || ""}
+      >
+        <option value="">All</option>
+        {filter.options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </Select>
+    ) : (
+      <Input
+        key={filter.name}
+        name={filter.name}
+        label={filter.label}
+        type={filter.type || "text"}
+        maxLength={filter.maxLength || 200}
+        defaultValue={values[filter.name] || ""}
+        placeholder={filter.type ? undefined : "Exact match"}
+      />
+    );
   return (
     <Card className="mb-5 p-4 sm:p-5">
-      <div className="grid gap-3 lg:grid-cols-6 lg:items-end">
+      <div
+        className={`grid gap-3 lg:items-end ${patientLayout ? (children ? "lg:grid-cols-5" : "lg:grid-cols-4") : "lg:grid-cols-6"}`}
+      >
         <div className="flex items-end gap-2 lg:contents">
           <div className="min-w-0 flex-1">
             <Search
@@ -105,35 +140,18 @@ export function ListFilters({
           className={`${expanded ? "block" : "hidden"} lg:contents`}
         >
           <div className="grid gap-3 sm:grid-cols-2 lg:contents">
-            {filters.map((filter) =>
-              filter.options ? (
-                <Select
-                  key={filter.name}
-                  name={filter.name}
-                  label={filter.label}
-                  defaultValue={values[filter.name] || ""}
-                >
-                  <option value="">All</option>
-                  {filter.options.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </Select>
-              ) : (
-                <Input
-                  key={filter.name}
-                  name={filter.name}
-                  label={filter.label}
-                  type={filter.type || "text"}
-                  maxLength={filter.maxLength || 200}
-                  defaultValue={values[filter.name] || ""}
-                  placeholder={filter.type ? undefined : "Exact match"}
-                />
-              ),
-            )}
+            {children}
+            {filters
+              .filter((filter) => !patientLayout || filter.type !== "date")
+              .map(renderFilter)}
           </div>
-          <div className="mt-3 grid gap-3 sm:grid-cols-3 lg:col-span-full lg:mt-0 lg:grid-cols-[repeat(3,minmax(0,1fr))_auto] lg:items-end">
+          <div
+            className={`mt-3 grid gap-3 sm:grid-cols-3 lg:col-span-full lg:mt-0 lg:items-end ${patientLayout ? "lg:grid-cols-[repeat(5,minmax(0,1fr))_auto]" : "lg:grid-cols-[repeat(3,minmax(0,1fr))_auto]"}`}
+          >
+            {patientLayout &&
+              filters
+                .filter((filter) => filter.type === "date")
+                .map(renderFilter)}
             <Select
               label="Sort by"
               value={values.sortBy || "createdAt"}

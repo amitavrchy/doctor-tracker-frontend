@@ -31,6 +31,13 @@ const sorts = [
   { value: "name", label: "Name" },
   { value: "condition", label: "Condition" },
 ];
-export function PatientFilters(props: ListFilterProps) {
-  return <ListFilters {...props} filters={filters} sortOptions={sorts} />;
+export function PatientFilters({
+  doctorPicker,
+  ...props
+}: ListFilterProps & { doctorPicker?: React.ReactNode }) {
+  return (
+    <ListFilters {...props} filters={filters} sortOptions={sorts} patientLayout>
+      {doctorPicker}
+    </ListFilters>
+  );
 }

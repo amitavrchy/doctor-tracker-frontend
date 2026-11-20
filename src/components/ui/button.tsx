@@ -9,6 +9,7 @@ export function Button({
   disabled,
   className,
   children,
+  type = "button",
   ...props
 }: ComponentPropsWithRef<"button"> & {
   variant?: "primary" | "secondary" | "ghost" | "danger";
@@ -17,6 +18,7 @@ export function Button({
 }) {
   return (
     <button
+      type={type}
       disabled={disabled || loading}
       className={cn(
         "inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 disabled:cursor-not-allowed disabled:opacity-50",

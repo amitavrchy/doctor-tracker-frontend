@@ -1,23 +1,11 @@
-import { Activity } from "lucide-react";
-import { PageHeader } from "@/components/layout/PageHeader";
-import { Card, EmptyState } from "@/components/ui";
-
+import { Suspense } from "react";
+import { Dashboard } from "@/features/dashboard/components/Dashboard";
+import { ListLoading } from "@/features/shared/ListLoading";
 export const metadata = { title: "Dashboard" };
-
 export default function DashboardPage() {
   return (
-    <>
-      <PageHeader
-        title="Dashboard"
-        description="Your care workspace, all in one place."
-      />
-      <Card>
-        <EmptyState
-          icon={<Activity />}
-          title="Your overview is coming soon"
-          description="A clearer picture of your doctors, patients, and activity will appear here."
-        />
-      </Card>
-    </>
+    <Suspense fallback={<ListLoading />}>
+      <Dashboard />
+    </Suspense>
   );
 }
