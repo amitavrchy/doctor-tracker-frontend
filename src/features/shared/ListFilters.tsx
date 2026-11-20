@@ -35,7 +35,7 @@ function Search({
   return (
     <Input
       label="Search"
-      placeholder="Name or contact details"
+      placeholder="Name or contact"
       value={draft}
       maxLength={100}
       onChange={(event) => setDraft(event.target.value)}
@@ -107,7 +107,7 @@ export function ListFilters({
   return (
     <Card className="mb-5 p-4 sm:p-5">
       <div
-        className={`grid gap-3 lg:items-end ${patientLayout ? (children ? "lg:grid-cols-5" : "lg:grid-cols-4") : "lg:grid-cols-6"}`}
+        className={`grid items-start gap-3 ${patientLayout ? "lg:grid-cols-4" : "lg:grid-cols-6"}`}
       >
         <div className="flex items-end gap-2 lg:contents">
           <div className="min-w-0 flex-1">
@@ -143,12 +143,30 @@ export function ListFilters({
             {children}
             {filters
               .filter((filter) => !patientLayout || filter.type !== "date")
-              .map(renderFilter)}
+              .map((filter) =>
+                patientLayout && children && filter.name === "status" ? (
+                  <div key={filter.name} className="md:col-span-2 lg:contents">
+                    {renderFilter(filter)}
+                  </div>
+                ) : (
+                  renderFilter(filter)
+                ),
+              )}
+            {patientLayout &&
+              children &&
+              filters
+                .filter((filter) => filter.type === "date")
+                .map((filter) => (
+                  <div key={filter.name} className="lg:order-2">
+                    {renderFilter(filter)}
+                  </div>
+                ))}
           </div>
           <div
-            className={`mt-3 grid gap-3 sm:grid-cols-3 lg:col-span-full lg:mt-0 lg:items-end ${patientLayout ? "lg:grid-cols-[repeat(5,minmax(0,1fr))_auto]" : "lg:grid-cols-[repeat(3,minmax(0,1fr))_auto]"}`}
+            className={`mt-3 grid gap-3 sm:grid-cols-3 lg:col-span-full lg:mt-0 lg:items-end ${patientLayout && children ? "lg:order-3 lg:grid-cols-4" : patientLayout ? "lg:grid-cols-[repeat(5,minmax(0,1fr))_auto]" : "lg:grid-cols-[repeat(3,minmax(0,1fr))_auto]"}`}
           >
             {patientLayout &&
+              !children &&
               filters
                 .filter((filter) => filter.type === "date")
                 .map(renderFilter)}

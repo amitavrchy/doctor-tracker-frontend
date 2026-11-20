@@ -53,7 +53,7 @@ export function DashboardControls({
         ))}
       </div>
       <form
-        className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-[1fr_1fr_1fr_1.5fr_100px_auto] xl:items-end"
+        className="mt-4 grid gap-3 sm:grid-cols-2 sm:items-end xl:grid-cols-[1fr_1fr_1fr_1.5fr_100px_auto] xl:items-end"
         onSubmit={(event) => {
           event.preventDefault();
           if (invalidRange || tooMany(granularity)) return;
@@ -109,7 +109,11 @@ export function DashboardControls({
           defaultValue={values.limit}
           required
         />
-        <Button type="submit" disabled={invalidRange || tooMany(granularity)}>
+        <Button
+          type="submit"
+          className="self-end"
+          disabled={invalidRange || tooMany(granularity)}
+        >
           Apply
         </Button>
       </form>

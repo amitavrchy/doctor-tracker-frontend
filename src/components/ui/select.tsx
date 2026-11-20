@@ -19,7 +19,7 @@ export function Select({
         id={fieldId}
         aria-invalid={!!error}
         aria-describedby={error || hint ? `${fieldId}-description` : undefined}
-        className={cn(fieldClass, className)}
+        className={cn(fieldClass, "h-11", className)}
         {...props}
       >
         {children}

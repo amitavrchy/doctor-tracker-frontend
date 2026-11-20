@@ -14,7 +14,7 @@ export function PatientCards({
   renderActions?: (patient: Patient) => ReactNode;
 }) {
   return (
-    <div className="divide-y divide-slate-100 md:hidden">
+    <div className="divide-y divide-slate-100 lg:hidden">
       {patients.map((patient) => (
         <div key={patient._id} className="p-5">
           <div className="flex items-start justify-between gap-2">
@@ -27,8 +27,10 @@ export function PatientCards({
             </div>
             {renderActions?.(patient)}
           </div>
-          <p className="mt-3 text-sm capitalize text-slate-600">
-            {patient.age} years · {patient.gender} · {patient.condition}
+          <p className="mt-3 text-sm text-slate-600">
+            <span className="tabular-nums">{patient.age}</span> years ·{" "}
+            <span className="capitalize">{patient.gender}</span> ·{" "}
+            {patient.condition}
           </p>
           {showDoctor && (
             <p className="mt-2 text-sm text-slate-500">

@@ -124,6 +124,7 @@ export function PatientsPageContent() {
         onClear={clear}
         doctorPicker={
           <DoctorPicker
+            filterLayout
             label="Doctor"
             value={values.doctor || ""}
             onChange={(doctor) => update({ doctor, page: 1 })}

@@ -18,7 +18,7 @@ export function Input({
         id={fieldId}
         aria-invalid={!!error}
         aria-describedby={error || hint ? `${fieldId}-description` : undefined}
-        className={cn(fieldClass, error && "border-red-400", className)}
+        className={cn(fieldClass, "h-11", error && "border-red-400", className)}
         {...props}
       />
     </FieldFrame>

@@ -8,7 +8,8 @@ Doctor Tracker gives authenticated administrators a clear, responsive workspace 
 
 - Frontend repository: https://github.com/amitavrchy/doctor-tracker-frontend
 - Backend repository: https://github.com/amitavrchy/doctor-tracker-backend
-- Live demo: `<add link after deployment>`
+- Live demo: https://doctor-tracker-amitav.netlify.app
+- Live API: https://doctor-tracker-api-j6lf.onrender.com/api/health
 
 ## Features
 

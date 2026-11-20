@@ -5,7 +5,7 @@ import type { Doctor } from "@/types";
 
 export function DoctorCards({ doctors }: { doctors: Doctor[] }) {
   return (
-    <div className="divide-y divide-slate-100 md:hidden">
+    <div className="divide-y divide-slate-100 lg:hidden">
       {doctors.map((doctor) => (
         <Link
           key={doctor._id}

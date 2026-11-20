@@ -6,7 +6,7 @@ import { PatientsPerDoctorChart } from "./PatientsPerDoctorChart";
 import { TrendChart } from "./TrendChart";
 export function DashboardCharts({ data }: { data: DashboardResponse }) {
   return (
-    <div className="grid gap-5 lg:grid-cols-2">
+    <div className="grid gap-5 lg:grid-cols-2 lg:[&>*:last-child:nth-child(even)]:col-span-2">
       <div className="lg:col-span-2">
         <TrendChart data={data} />
       </div>

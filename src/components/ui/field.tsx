@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils/cn";
 export type Field = { label: string; hint?: string; error?: string };
 
 export const fieldClass =
-  "w-full rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-teal-600 focus:ring-4 focus:ring-teal-600/10";
+  "block w-full rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-teal-600 focus:ring-4 focus:ring-teal-600/10";
 
 export function FieldFrame({
   label,

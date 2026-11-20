@@ -30,7 +30,7 @@ export function PatientTable({
     ...(renderActions ? ["Actions"] : []),
   ];
   return (
-    <div className="hidden md:block">
+    <div className="hidden lg:block">
       <Table>
         <TableHead>
           <TableRow>
@@ -46,13 +46,13 @@ export function PatientTable({
             <TableRow key={patient._id}>
               <TableCell>
                 <span className="font-semibold">{patient.name}</span>
-                <div className="mt-1 text-xs text-slate-500">
+                <div className="mt-1 text-xs text-slate-500 tabular-nums">
                   {patient.phone}
                   {patient.email && ` · ${patient.email}`}
                 </div>
               </TableCell>
               <TableCell>
-                <span className="capitalize">
+                <span className="capitalize tabular-nums">
                   {patient.age} / {patient.gender}
                 </span>
               </TableCell>
@@ -71,7 +71,11 @@ export function PatientTable({
                 </TableCell>
               )}
               <TableCell>{patient.condition}</TableCell>
-              <TableCell>{formatDate(patient.admissionDate)}</TableCell>
+              <TableCell>
+                <span className="tabular-nums">
+                  {formatDate(patient.admissionDate)}
+                </span>
+              </TableCell>
               <TableCell>
                 <Badge className="capitalize">{patient.status}</Badge>
               </TableCell>

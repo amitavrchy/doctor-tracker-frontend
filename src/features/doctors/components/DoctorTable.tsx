@@ -12,7 +12,7 @@ import type { Doctor } from "@/types";
 
 export function DoctorTable({ doctors }: { doctors: Doctor[] }) {
   return (
-    <div className="hidden md:block">
+    <div className="hidden lg:block">
       <Table>
         <TableHead>
           <TableRow>
@@ -48,8 +48,14 @@ export function DoctorTable({ doctors }: { doctors: Doctor[] }) {
                 <Badge>{doctor.specialization}</Badge>
               </TableCell>
               <TableCell>{doctor.hospital}</TableCell>
-              <TableCell>{doctor.phone}</TableCell>
-              <TableCell>{formatDate(doctor.createdAt)}</TableCell>
+              <TableCell>
+                <span className="tabular-nums">{doctor.phone}</span>
+              </TableCell>
+              <TableCell>
+                <span className="tabular-nums">
+                  {formatDate(doctor.createdAt)}
+                </span>
+              </TableCell>
               <TableCell>
                 <span className="font-semibold text-teal-700">View</span>
               </TableCell>

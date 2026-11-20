@@ -24,7 +24,7 @@ export function ChartCard({
         <div
           role="group"
           aria-label={`${title}. ${description || "See the data summary below."}`}
-          className="mt-4"
+          className="mt-4 tabular-nums"
         >
           {children}
         </div>

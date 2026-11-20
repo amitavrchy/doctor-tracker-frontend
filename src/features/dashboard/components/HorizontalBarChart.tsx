@@ -1,5 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import Link from "next/link";
 import {
   Bar,
@@ -7,6 +8,7 @@ import {
   CartesianGrid,
   LabelList,
   ResponsiveContainer,
+  Text,
   Tooltip,
   XAxis,
   YAxis,
@@ -25,11 +27,18 @@ export function HorizontalBarChart({
   linkDoctors?: boolean;
 }) {
   const router = useRouter();
+  const [chartWidth, setChartWidth] = useState(0);
+  const wide = chartWidth >= 480;
+  const axisWidth = wide ? 200 : Math.floor(chartWidth * 0.45);
   return (
     <ChartCard title={title} description={description} empty={!data.length}>
       <div className="max-h-[520px] overflow-y-auto">
         <div style={{ height: Math.max(256, data.length * 34 + 40) }}>
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer
+            width="100%"
+            height="100%"
+            onResize={(width) => setChartWidth(width)}
+          >
             <BarChart
               data={data}
               layout="vertical"
@@ -40,11 +49,30 @@ export function HorizontalBarChart({
               <YAxis
                 type="category"
                 dataKey="label"
-                width={125}
+                width={axisWidth}
                 interval={0}
-                tick={{ fontSize: 11 }}
-                tickFormatter={(label: string) =>
-                  label.length > 18 ? `${label.slice(0, 17)}…` : label
+                tick={
+                  wide
+                    ? { fontSize: 11 }
+                    : ({ x, y, payload }) => (
+                        <Text
+                          x={x}
+                          y={y}
+                          textAnchor="end"
+                          verticalAnchor="middle"
+                          width={axisWidth - 10}
+                          maxLines={1}
+                          style={{ fontSize: 11 }}
+                        >
+                          {payload.value}
+                        </Text>
+                      )
+                }
+                tickFormatter={
+                  wide
+                    ? (label: string) =>
+                        label.length > 29 ? `${label.slice(0, 28)}…` : label
+                    : undefined
                 }
               />
               <Tooltip />
