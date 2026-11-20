@@ -1,8 +1,23 @@
+import { Stethoscope } from "lucide-react";
+import { PageHeader } from "@/components/layout/PageHeader";
+import { Card, EmptyState } from "@/components/ui";
+
+export const metadata = { title: "Doctors" };
+
 export default function DoctorsPage() {
   return (
-    <section>
-      <h1 className="text-2xl font-semibold">Doctors</h1>
-      <p className="mt-2 text-zinc-500">TODO: doctors list</p>
-    </section>
+    <>
+      <PageHeader
+        title="Doctors"
+        description="Find and manage the doctors in your network."
+      />
+      <Card>
+        <EmptyState
+          icon={<Stethoscope />}
+          title="Doctor management is coming soon"
+          description="Your doctor directory will be available here."
+        />
+      </Card>
+    </>
   );
 }

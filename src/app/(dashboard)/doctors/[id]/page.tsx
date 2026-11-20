@@ -1,21 +1,29 @@
-import { Suspense } from "react";
+import Link from "next/link";
+import { Stethoscope } from "lucide-react";
+import { PageHeader } from "@/components/layout/PageHeader";
+import { Card, EmptyState } from "@/components/ui";
 
-async function DoctorDetail({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+export const metadata = { title: "Doctor details" };
+
+export default function DoctorDetailPage() {
   return (
     <>
-      <h1 className="text-2xl font-semibold">Doctor {id}</h1>
-      <p className="mt-2 text-zinc-500">TODO: doctor details &amp; patients</p>
+      <PageHeader
+        title="Doctor details"
+        description="View a doctor and their patient records."
+        breadcrumbs={
+          <Link href="/doctors" className="hover:text-teal-700">
+            Doctors
+          </Link>
+        }
+      />
+      <Card>
+        <EmptyState
+          icon={<Stethoscope />}
+          title="Doctor details are coming soon"
+          description="Information about this doctor will appear here."
+        />
+      </Card>
     </>
-  );
-}
-
-export default function DoctorDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  return (
-    <section>
-      <Suspense fallback={<p className="text-zinc-500">Loading…</p>}>
-        <DoctorDetail params={params} />
-      </Suspense>
-    </section>
   );
 }

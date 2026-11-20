@@ -1,11 +1,11 @@
-import { Sidebar } from "@/components/layout/Sidebar";
+import type { ReactNode } from "react";
+import { AuthGuard } from "@/components/auth/AuthGuard";
+import { AppShell } from "@/components/layout/AppShell";
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-  // TODO: protect these routes (auth guard)
+export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="flex min-h-screen flex-col md:flex-row">
-      <Sidebar />
-      <main className="flex-1 p-6">{children}</main>
-    </div>
+    <AuthGuard>
+      <AppShell>{children}</AppShell>
+    </AuthGuard>
   );
 }
